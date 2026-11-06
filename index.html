@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PokerNow Tracker</title>
+<style>
+  :root { color-scheme: light dark; --fg: #1d1d1f; --bg: #fff; --muted: #6e6e73; --code: #f2f2f4; }
+  @media (prefers-color-scheme: dark) { :root { --fg: #f2f2f4; --bg: #161618; --muted: #a1a1a6; --code: #26262a; } }
+  body { margin: 0 auto; max-width: 720px; padding: 32px 16px; font: 16px/1.55 system-ui, sans-serif; color: var(--fg); background: var(--bg); }
+  pre { background: var(--code); padding: 12px 14px; border-radius: 8px; overflow-x: auto; }
+  code { font: 14px ui-monospace, Consolas, monospace; }
+  .muted { color: var(--muted); font-size: 14px; }
+  dt { font-weight: 600; margin-top: 14px; }
+  dd { margin: 4px 0 0; }
+  table { border-collapse: collapse; width: 100%; font-size: 15px; }
+  th, td { text-align: left; vertical-align: top; padding: 6px 8px; border-bottom: 1px solid var(--code); }
+</style></head><body>
+<h1>PokerNow Tracker</h1>
+<p>A hand database, stats and a HUD for PokerNow games, on your own computer.</p>
+<h2>This build or the Chrome Web Store one?</h2>
+<p>This is the testing build: new features land here first and move to the
+<a href="https://chromewebstore.google.com/detail/pokernow-tracker/pnanljjehgbnafkhfnklijgclngelbcp">Chrome Web Store version</a> once they work. Want a one-click install with no Python? Use that one.</p>
+<table>
+<tr><th></th><th>Chrome Web Store</th><th>This build</th></tr>
+<tr><td>New features</td><td>Once tested here</td><td>First</td></tr>
+<tr><td>Install</td><td>One click</td><td>Python, pipx and <code>pnt setup</code></td></tr>
+<tr><td>The tracker runs</td><td>Inside the extension</td><td>In the companion app, a small server on your computer</td></tr>
+<tr><td>Your hands</td><td>In Chrome; removing the extension deletes them</td><td>A <code>pokernow.sqlite</code> file you keep</td></tr>
+<tr><td><code>pnt</code> commands</td><td>–</td><td>✓</td></tr>
+</table>
+<p>Only here for now: stat outlier tints, chart tab dots, Results counters, Line explorer ◆ marks and graphs.
+They may change between releases.</p>
+<p>Pick one per Chrome profile: both record every table, and they don't share hands.</p>
+<h2>Install</h2>
+<p>You need Python 3.11+, pipx and Chrome. On Windows, use the python.org installer, not the Microsoft Store build.</p>
+<p>No pipx yet? Install it and put it on your PATH, then open a new terminal:</p>
+<pre><code># Windows (python.org or Microsoft Store Python)
+python -m pip install --user pipx
+python -m pipx ensurepath
+
+# macOS
+brew install pipx
+pipx ensurepath</code></pre>
+<p>Then:</p>
+<pre><code>pipx install https://jaaaayden.github.io/pnt-dist/pokernow_tracker-0.1.3-py3-none-any.whl
+pnt setup</code></pre>
+<p>Then in Chrome open <code>chrome://extensions</code>, turn on Developer mode, click <b>Load unpacked</b> and pick the folder
+<code>pnt setup</code> printed. Open <a href="http://127.0.0.1:52000">http://127.0.0.1:52000</a> for everything else.</p>
+<h2>Update</h2>
+<pre><code>pnt update</code></pre>
+<p>Always <code>pnt update</code>, never <code>pipx upgrade</code>: pipx reinstalls the version you first installed.
+The front page and the HUD say when there is one; <code>pnt --version</code> shows yours.</p>
+<h2>Already installed?</h2>
+<dl>
+<dt>Does installing again replace the old version?</dt>
+<dd>No: <code>pipx install</code> says "already installed" and changes nothing. Run <code>pnt update</code>,
+which replaces the old version in place; there is nothing to uninstall first. Ignore pipx's hint to run
+<code>pipx upgrade</code>: that goes back to the version you first installed.</dd>
+<dt><code>pnt update</code> fails</dt>
+<dd>Installed before November 2026: run <code>pnt update --from https://jaaaayden.github.io/pnt-dist/pokernow_tracker-0.1.3-py3-none-any.whl</code> once. Plain <code>pnt update</code> works after that.</dd>
+<dt>Will I lose my hands?</dt>
+<dd>No. They are in a <code>pokernow.sqlite</code> file outside the install, which updates never touch; <code>pnt where</code> shows where.</dd>
+<dt>Do I reload the Chrome extension?</dt>
+<dd>It reloads itself within a minute. HUD still looks old? Click its reload arrow at <code>chrome://extensions</code>.</dd>
+<dt>Remove it completely</dt>
+<dd><pre><code>pnt service uninstall
+pipx uninstall pokernow-tracker</code></pre>
+Then remove the extension at <code>chrome://extensions</code>. The database file stays until you delete it.</dd>
+</dl>
+<p><a href="guide">Guide</a> · <a href="privacy">Privacy</a></p>
+<p class="muted">Version 0.1.3 · built 2026-11-06 10:31 UTC</p>
+</body></html>
